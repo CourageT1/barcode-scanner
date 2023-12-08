@@ -1,0 +1,31 @@
+<!-- templates/index.html -->
+{% extends 'layout.html' %}
+
+{% block content %}
+    <section>
+        <h2>Welcome to Shopping Made Easy!</h2>
+        <p>Explore our products and enjoy a convenient shopping experience.</p>
+        <p>Scan barcodes, discover promotions, and find your favorite items effortlessly.</p>
+    </section>
+
+    <section>
+        <h2>Featured Products</h2>
+        <!-- Display featured products or any relevant content here -->
+        <div class="product">
+		<img src="{{ url_for('static', filename='images/groceries/cereal.jpg') }}" alt="Cereal">
+		<p>Cereal</p>
+		<p>R42.99</p>
+	</div>
+	<div class="product">
+		<img src="{{ url_for('static', filename='images/fruits/apple.jpg') }}" alt="Apple">
+		<p>Apple</p>
+		<p>R14.49</p>
+	</div>
+	<div class="product">
+		<img src="{{ url_for('static', filename='images/others/stove.jpg') }}" alt="stove">
+		<p>stove</>
+		<p>R999.99</p>
+	</div>
+
+    </section>
+{% endblock %}
