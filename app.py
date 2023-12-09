@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, jsonify
 from models import db, Product, FileStorage
 import barcode
 from barcode.writer import ImageWriter
+import csv
 
 # Create a Flask app instance
 app = Flask(__name__, static_url_path='/static', template_folder='templates')
