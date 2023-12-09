@@ -7,7 +7,8 @@ db = SQLAlchemy()
 photos = UploadSet("photos", IMAGES)
 
 class Product(db.Model):
-    id = db.Column(db.String(13), primary_key=True)  # Assuming barcode is a string with length 13
+    id = db.Column(db.Column(db.Integer, primary_key=True)  # Assuming barcode is a string with length 13
+    barcode = db.Column(db.String(20), unique=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
     expiry_date = db.Column(db.String(20))
