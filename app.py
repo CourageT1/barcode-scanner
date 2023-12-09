@@ -9,60 +9,44 @@ from barcode.writer import ImageWriter
 # Create a Flask app instance
 app = Flask(__name__, static_url_path='/static', template_folder='templates')
 
-# Configurations for Flask app
+app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FILE_STORAGE'] = FileStorage()
-
-# Initialize SQLAlchemy extension with the Flask app
+app.config['FILE_STORAGE'] = FileStorage()
 db.init_app(app)
-
-# Create tables in the database (if they don't exist)
-with app.app_context():
-    db.create_all()
 
 # Define routes
 
-# Route for the home page
 @app.route('/')
 def index():
-    """Render the home page."""
-    products = Product.query.all()
-    return render_template('index.html', products=products)
-
-# Route for the landing page
-@app.route('/landing')
-def landing():
+    # Render your landing page
     return render_template('landing.html')
 
-# Route for the "About" page
-@app.route('/about')
-def about():
-    about_content = """
-    Shopping Made Easy is your go-to solution for a hassle-free shopping experience. 
-    Our barcode scanner app simplifies the process of finding and purchasing your favorite items.
-    Scan barcodes, explore promotions, and enjoy the convenience of efficient shopping. Shopping made easy.
-    """
-    return render_template('about.html', about_content=about_content)
-
-# Route for the "Promotions" page
-@app.route('/promotions')
-def promotions():
-    # For simplicity, promotions are hardcoded here. In a real app, you would fetch these from a database.
-    promotions_list = ['promotion1.jpg', 'promotion2.jpg']
-    return render_template('promotions.html', promotions_list=promotions_list)
-
-# Route for the "Scan" page
-@app.route('/scan')
+@app.route('/scan', methods=['POST'])
 def scan():
-    return render_template('scan.html')
+    barcode = request.form['barcode']
 
-# Route for the "Contact" page
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
+    # Query the database to find the product with the given barcode
+    product = Product.query.filter_by(barcode=barcode).first()
 
-# Run the Flask app if this script is executed
+    # Prepare the response data
+    response = {
+        'found': True if product else False,
+        'product_info': {
+            'name': product.name,
+            'price': product.price,
+            'expiry_date': product.expiry_date,
+            # Add more fields as needed
+        } if product else {}
+    }
+
+    # Return the response as JSON
+    return jsonify(response)
+
+# Add more routes as needed
+
 if __name__ == '__main__':
-    # Run the app in debug mode
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
