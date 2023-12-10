@@ -1,4 +1,4 @@
-<!-- templates/index.html -->
+<!-- templates/index.html>
 {% extends 'layout.html' %}
 
 {% block content %}
@@ -10,22 +10,16 @@
 
     <section>
         <h2>Featured Products</h2>
-        <!-- Display featured products or any relevant content here -->
-        <div class="product">
-		<img src="{{ url_for('static', filename='images/groceries/cereal.jpg') }}" alt="Cereal">
-		<p>Cereal</p>
-		<p>R42.99</p>
-	</div>
-	<div class="product">
-		<img src="{{ url_for('static', filename='images/fruits/apple.jpg') }}" alt="Apple">
-		<p>Apple</p>
-		<p>R14.49</p>
-	</div>
-	<div class="product">
-		<img src="{{ url_for('static', filename='images/others/stove.jpg') }}" alt="stove">
-		<p>stove</>
-		<p>R999.99</p>
-	</div>
-
+        <!-- Display products dynamically from the database -->
+        {% for product in products %}
+            <div class="product">
+                <img src="{{ url_for('static', filename='images/' + product.image_filename) }}" alt="{{ product.name }}">
+                <p>{{ product.name }}</p>
+                <p>Price: ${{ product.price }}</p>
+                <p>Expiry Date: {{ product.expiry_date }}</p>
+                <button onclick="scanBarcode('{{ product.barcode }}')">Scan Barcode</button>
+            </div>
+        {% endfor %}
     </section>
 {% endblock %}
+
