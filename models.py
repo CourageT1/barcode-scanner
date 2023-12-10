@@ -13,7 +13,7 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     expiry_date = db.Column(db.String(20))
     promotion = db.Column(db.String(100))
-    image_url = db.Column(db.String(200))
+    image_filename = db.Column(db.String(100))
 
 class FileStorage:
     def __init__(self, app=None):
