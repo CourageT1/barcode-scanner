@@ -7,7 +7,7 @@ db = SQLAlchemy()
 photos = UploadSet("photos", IMAGES)
 
 class Product(db.Model):
-    id = db.Column(db.Column(db.Integer, primary_key=True)  # Assuming barcode is a string with length 13
+    id = db.Column(db.Integer, primary_key=True)
     barcode = db.Column(db.String(20), unique=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
@@ -22,4 +22,3 @@ class FileStorage:
 
     def init_app(self, app):
         app.config['UPLOADED_PHOTOS_DEST'] = 'app/static/uploads'
-        configure_uploads(app, photos)
