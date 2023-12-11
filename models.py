@@ -2,6 +2,7 @@
 """database storage"""
 from flask_sqlalchemy import SQLAlchemy
 from flask_uploads import UploadSet, IMAGES, configure_uploads
+from werkzeug.utils import secure_filename
 
 db = SQLAlchemy()
 photos = UploadSet("photos", IMAGES)
