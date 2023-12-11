@@ -2,23 +2,24 @@
 """Flask app for the project"""
 import os
 from flask import Flask, render_template, request, jsonify
-from models import db, Product, FileStorage
-import barcode
-from barcode.writer import ImageWriter
-import csv
-from app import db
-from flask import request
+from models import db, Product, FileStorage  # Import db from models
+from flask_migrate import Migrate
+import sys
 
 # Create a Flask app instance
 app = Flask(__name__, static_url_path='/static', template_folder='templates')
 
-app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///products.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FILE_STORAGE'] = FileStorage()
-app.config['FILE_STORAGE'] = FileStorage()
+
+# Initialize SQLAlchemy extension with the Flask app
 db.init_app(app)
 
+# Initialize Flask-Migrate extension
+migrate = Migrate(app, db)
+
+# Create tables in the database (if they don't exist)
 with app.app_context():
     db.create_all()
 
@@ -60,17 +61,27 @@ def submit_product():
 
     # Handle file upload
     file = request.files['image']
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOADED_PHOTOS_DEST'], filename))
+    if file:
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    else:
+        filename = None
 
-    # Save the data to the database or perform other actions
-    # ...
+    # Save the data to the database
+    new_product = Product(
+        barcode=barcode,
+        name=name,
+        price=price,
+        expiry_date=expiry_date,
+        image_filename=filename
+    )
+
+    db.session.add(new_product)
+    db.session.commit()
 
     return 'Product submitted successfully!'
 
 # Add more routes as needed
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)

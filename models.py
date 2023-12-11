@@ -14,11 +14,3 @@ class Product(db.Model):
     expiry_date = db.Column(db.String(20))
     promotion = db.Column(db.String(100))
     image_filename = db.Column(db.String(100))
-
-class FileStorage:
-    def __init__(self, app=None):
-        if app:
-            self.init_app(app)
-
-    def init_app(self, app):
-        app.config['UPLOADED_PHOTOS_DEST'] = 'app/static/uploads'
