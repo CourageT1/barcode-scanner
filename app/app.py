@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Flask app for the project"""
+"""Flask app forthe project"""
 import os
 from flask import Flask, render_template, request, jsonify
 from flask_migrate import Migrate
