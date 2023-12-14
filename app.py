@@ -45,10 +45,10 @@ def index():
 def about():
     return render_template('about.html')
 
-# Handle favicon.ico request
-@app.route('/favicon.ico')
-def favicon():
-    return app.send_static_file('favicon.ico')
+# Handle favcon.ico request
+@app.route('/favcon.ico')
+def favcon():
+    return app.send_static_file('favcon.ico')
 
 @app.route('/promotions')
 def promotions():
