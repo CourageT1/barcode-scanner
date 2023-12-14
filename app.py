@@ -46,10 +46,10 @@ def about():
     return render_template('about.html')
 
 
-# Handle favcon.ico request
-@app.route('/favicon.ico')
+# Handle favcon.png request
+@app.route('/favicon.png')
 def favicon():
-    return app.send_static_file('favicon.ico')
+    return app.send_static_file('favicon.png')
 
 @app.route('/promotions')
 def promotions():
