@@ -47,9 +47,9 @@ def about():
 
 
 # Handle favcon.png request
-@app.route('/favicon-32x32.png ')
+@app.route('/android-chrome-512x512.png')
 def favicon():
-    return app.send_static_file('favicon-32x32.png ')
+    return app.send_static_file('android-chrome-512x512.png')
 
 @app.route('/promotions')
 def promotions():
