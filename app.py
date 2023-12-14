@@ -45,18 +45,19 @@ def index():
 def about():
     return render_template('about.html')
 
+
 # Handle favcon.ico request
-@app.route('/favcon.ico')
-def favcon():
-    return app.send_static_file('favcon.ico')
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('favicon.ico')
 
 @app.route('/promotions')
 def promotions():
     return render_template('promotions.html')
 
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
+@app.route('/contacts')
+def contacts():
+    return render_template('contacts.html')
 
 @app.route('/scan', methods=['POST'])
 def scan():
