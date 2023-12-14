@@ -2,27 +2,29 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <section style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff;">
-        <img src="{{ url_for('favicon') }}" alt="Favicon">
-        <h2>About Shopping Made Easy</h2>
-        <p>Welcome to Shopping Made Easy, your go-to solution for a hassle-free shopping experience.</p>
-        <p>Our barcode scanner app simplifies the process of finding and purchasing your favorite items.</p>
-        <p>Scan barcodes, explore promotions, and enjoy the convenience of efficient shopping. Shopping made easy.</p>
-    </section>
+    <body style="background-image: url('{{ url_for('static', filename='favicon.png') }}'); background-size: cover; color: #ffff00;">
+        <section style="height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.5); padding: 20px;">
+            <img src="{{ url_for('static', filename='favicon.png') }}" alt="Favicon">
+            <h2>About Shopping Made Easy</h2>
+            <p>Welcome to Shopping Made Easy, your go-to solution for a hassle-free shopping experience.</p>
+            <p>Our barcode scanner app simplifies the process of finding and purchasing your favorite items.</p>
+            <p>Scan barcodes, explore promotions, and enjoy the convenience of efficient shopping. Shopping made easy.</p>
+        </section>
 
-    <section>
-        <h2>About the Developer</h2>
-        <p>Hi, I'm Talent Gwizhi, the developer behind Shopping Made Easy. I'm passionate about creating innovative solutions that make life simpler.</p>
-        <p>Connect with me on <a href="https://github.com/CourageT1/barcode-scanner" target="_blank">GitHub</a> to explore more of my projects.</p>
-    </section>
+        <section>
+            <h2>About the Developer</h2>
+            <p>Hi, I'm Talent Gwizhi, the developer behind Shopping Made Easy. I'm passionate about creating innovative solutions that make life simpler.</p>
+            <p>Connect with me on <a href="https://github.com/CourageT1/barcode-scanner" target="_blank">GitHub</a> to explore more of my projects.</p>
+        </section>
 
-    <section>
-        <h2><a href="{{ url_for('about') }}">Learn More</a> about Shopping Made Easy</h2>
-    </section>
+        <section>
+            <h2><a href="{{ url_for('about') }}">Learn More</a> about Shopping Made Easy</h2>
+        </section>
 
-    <section>
-        <h2>Deployed App</h2>
-        <p>Visit the deployed app to start shopping:</p>
-        <a href="https://your-deployed-app-url.com" target="_blank">Shopping Made Easy</a>
-    </section>
+        <section>
+            <h2>Deployed App</h2>
+            <p>Visit the deployed app to start shopping:</p>
+            <a href="https://your-deployed-app-url.com" target="_blank">Shopping Made Easy</a>
+        </section>
+    </body>
 {% endblock %}
