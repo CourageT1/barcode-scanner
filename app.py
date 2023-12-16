@@ -65,7 +65,7 @@ def scan():
     return render_template('scan.html')
 
 @app.route('/scan', methods=['POST'])
-def scan():
+def scan_post():
     barcode = request.form['barcode']
 
     # Query the database to find the product with the given barcode
