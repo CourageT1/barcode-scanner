@@ -59,6 +59,11 @@ def promotions():
 def contacts():
     return render_template('contacts.html')
 
+# New route for the scanning page
+@app.route('/scan')
+def scan():
+    return render_template('scan.html')
+
 @app.route('/scan', methods=['POST'])
 def scan():
     barcode = request.form['barcode']
