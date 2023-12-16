@@ -1,4 +1,4 @@
-<!-- app/templates/layout.html -->
+<!-- layout.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,13 +58,8 @@
             cursor: pointer;
         }
 
-        #manual-entry {
+        #scanner-container {
             display: none;
-        }
-
-        #manual-entry input {
-            padding: 5px;
-            font-size: 14px;
         }
     </style>
 </head>
@@ -92,32 +87,54 @@
     </footer>
 
     <!-- Add a button to toggle between scanning and manual entry -->
-    <button id="scan-button" onclick="toggleManualEntry()">Scan Code</button>
+    <button id="scan-button" onclick="toggleScanner()">Scan Code</button>
 
-    <!-- Input field for manual barcode entry -->
-    <div id="manual-entry">
-        <label for="manual-barcode">Enter Barcode:</label>
-        <input type="text" id="manual-barcode" name="manual-barcode">
-        <button onclick="submitManualEntry()">Submit</button>
-    </div>
+    <!-- Container for the Quagga scanner -->
+    <div id="scanner-container"></div>
 
-    <!-- Script to handle toggle and manual entry -->
+    <!-- Script to handle toggle and scanner -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
     <script>
-        function toggleManualEntry() {
-            var manualEntryDiv = document.getElementById("manual-entry");
-            if (manualEntryDiv.style.display === "none") {
-                manualEntryDiv.style.display = "block";
+        function toggleScanner() {
+            var scannerContainer = document.getElementById("scanner-container");
+            if (scannerContainer.style.display === "none") {
+                scannerContainer.style.display = "block";
+                initQuagga();
             } else {
-                manualEntryDiv.style.display = "none";
+                scannerContainer.style.display = "none";
+                Quagga.stop();
             }
         }
 
-        function submitManualEntry() {
-            // Get the manually entered barcode
-            var manualBarcode = document.getElementById("manual-barcode").value;
+        function initQuagga() {
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: document.querySelector('#scanner-container'),
+                    constraints: {
+                        width: 480,
+                        height: 320,
+                        facingMode: "environment" // or "user" for front camera
+                    },
+                },
+                decoder: {
+                    readers: ["ean_reader"] // or other barcode types you want to support
+                }
+            }, function (err) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                // Start Quagga
+                Quagga.start();
+            });
 
-            // Redirect to the scanning page with the manually entered barcode
-            window.location.href = "{{ url_for('scan') }}?barcode=" + manualBarcode;
+            // Register listener for successful scans
+            Quagga.onDetected(function (result) {
+                // Handle the scanned barcode (replace this with your logic)
+                alert('Barcode detected: ' + result.codeResult.code);
+            });
         }
     </script>
 </body>
