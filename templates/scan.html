@@ -10,11 +10,12 @@
             <input type="text" id="manual-barcode">
             <button id="submit-manual" onclick="submitManual()">Submit</button>
         </div>
+        <!-- Add a container for Quagga to render the live camera feed -->
+        <div id="scanner-container"></div>
         <div id="scan-result"></div>
     </section>
 
-    <script>
-         <!-- Include Quagga script -->
+    <!-- Include Quagga script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -48,8 +49,15 @@
                 alert('Barcode detected: ' + result.codeResult.code);
             });
         });
+
+        // Define the functions scanBarcode() and submitManual() if not defined already
+        function scanBarcode() {
+            // Implement your logic for initiating barcode scanning
+        }
+
+        function submitManual() {
+            // Implement your logic for submitting manually entered barcode
+        }
     </script>
-</head>
-<body>
-    <header>
+{% endblock %}
     
