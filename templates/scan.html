@@ -14,4 +14,42 @@
     </section>
 
     <script>
+         <!-- Include Quagga script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Quagga and set up configuration
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: document.querySelector('#scanner-container'),
+                    constraints: {
+                        width: 480,
+                        height: 320,
+                        facingMode: "environment" // or "user" for front camera
+                    },
+                },
+                decoder: {
+                    readers: ["ean_reader"] // or other barcode types you want to support
+                }
+            }, function (err) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                // Start Quagga
+                Quagga.start();
+            });
+
+            // Register listener for successful scans
+            Quagga.onDetected(function (result) {
+                // Display product information (replace this with your logic)
+                alert('Barcode detected: ' + result.codeResult.code);
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
     
